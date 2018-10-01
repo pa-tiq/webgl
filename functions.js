@@ -46,11 +46,40 @@ gl.attachShader(program, fragment);
 gl.linkProgram(program);
 gl.useProgram(program);
 
-let point = [0.5,0.5,0.5, 0,0,0, 0.7,0.3,0.3, -0.4,-0.4,-0.4];
+let point = [0.5,0.5,0.5, 0,0,0, 0.7,0.3,0.3,
+    -0.3,-0.3,-0.2, 0.9,0.8,0.8, -0.6,0,0];
 let vbo = gl.createBuffer();
 
 gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
 gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(point) ,gl.STATIC_DRAW);
 gl.enableVertexAttribArray(0);
 gl.vertexAttribPointer(0,3,gl.FLOAT, false, 0,0);
-gl.drawArrays(gl.TRIANGLES, 0, 4);
+gl.drawArrays(gl.POINTS, 0, 6);
+
+(function() 
+{
+    var mousePos;
+
+    document.onmousemove = handleMouseMove;
+    setInterval(getMousePosition, 100);
+
+    function handleMouseMove(event) 
+    {
+        event = event || window.event;
+
+        mousePos = {
+            x: event.pageX,
+            y: event.pageY
+        };
+    }
+
+    function getMousePosition() 
+    {
+        var pos = mousePos;
+
+        if (pos) 
+        {
+            console.log(pos);           
+        }
+    }
+})();
